@@ -94,3 +94,10 @@ python tracker/track.py --dataset uavdt --detector yolov8 --tracker s_iou_track 
 ```
 
 First, activate your environment, then go to the Yolov7-tracker-2/ directory and run the track.py script inside the tracker folder.  Replace pt file with any others as needed. Replace `detector_model_path` and `Easier_To_Use_TrackEval` with your custom paths. We will publish the pt files in the VisDrone and UAVDT datasets.  
+
+### Acknowledgements
+We're grateful to the open-source authors whose code has assisted us.
+- [Yolov7-tracker](https://github.com/JackWoo0831/Yolov7-tracker/tree/v2)
+- [Easier_To_Use_TrackEval](https://github.com/JackWoo0831/Easier_To_Use_TrackEval)
+- [Ultralytics](https://github.com/ultralytics/ultralytics)
+
