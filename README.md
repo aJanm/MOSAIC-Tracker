@@ -99,7 +99,11 @@ The main results of VisDrone:
 
 | **Method** | **Dataset** | **HOTA** | **MOTA** | **IDF1** | **FN** | **FP** | **IDs** | **MT** | **ML** |                                           **URL**                                           |
 |:----------:|:-----------:|:--------:|:--------:|:--------:|:---------:|:---------:|:---------:|-----------|----------| :-----------------------------------------------------------------------------------------: |
-| Ours  | VisDrone | 64.568 | 70.294 | 81.667 | 19584 | 3137 | 375 | 190 | 38 | [model](https://github.com/wudongming97/RMOT/releases/download/v1.0/checkpoint0099.pth) |
+| Ours  | VisDrone |46.044 | 41.358 | 58.142 | 126112 | 26895 | 1862 | 583 | 591 | [model](https://github.com/aJanm/MOSAIC-Tracker/releases/download/v1.0/my_visdrone.pt) |
+
+| **Method** | **Dataset** | **HOTA** | **MOTA** | **IDF1** | **FN** | **FP** | **IDs** | **MT** | **ML** |                                           **URL**                                           |
+|:----------:|:-----------:|:--------:|:--------:|:--------:|:---------:|:---------:|:---------:|-----------|----------| :-----------------------------------------------------------------------------------------: |
+| Ours  | UAVDT | 64.568 | 70.294 | 81.667 | 19584 | 3137 | 375 | 190 | 38 | [model](https://github.com/aJanm/MOSAIC-Tracker/releases/download/v1.0/my_uavdt.pt) |
 
 ### Acknowledgements
 We're grateful to the open-source authors whose code has assisted us.
