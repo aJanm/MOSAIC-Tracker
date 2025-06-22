@@ -1,194 +1,96 @@
-# YOLO detector and SOTA Multi-object tracker Toolbox
+# MOSAIC-Tracker: Mutual-enhanced Occlusion-aware Spatiotemporal Adaptive Identity Consistency Network for Aerial Multi-Object Tracking
 
-## ❗❗Important Notes
+This repository provides the implementation for paper.  We present a Mutual-enhanced Occlusion-aware Spatiotemporal Adaptive  Identity Conservation Network (MOSAIC-Tracker) that dynamically  optimizes feature representation and data association across three key  dimensions. Extensive evaluations on UAVDT and VisDrone2019 datasets  demonstrate good performance.
 
-Compared to the previous version, this is an ***entirely new version (branch v2)***!!!
+---
 
-**Please use this version directly, as I have almost rewritten all the code to ensure better readability and improved results, as well as to correct some errors in the past code.**
+## 🛠️ Installation
 
-```bash 
-git clone https://github.com/JackWoo0831/Yolov7-tracker.git
-git checkout v2  # change to v2 branch !!
+> ⚠️ **Note:** The provided environment file is for **reference only**. Some packages may require manual installation or configuration.
+
+### Recommended Environment
+
+- `pytorch` 2.4.1 
+
+- `python` 3.9 or 3.10  
+
+  > ⚙️ You can also run it on older versions of PyTorch first to test if relevant performance results can be obtained. [installation instructions](https://pytorch.org/get-started/locally/).  
+
+- `opencv-python` 4.10.0
+
+- `timm` 1.0.12  
+
+- `wandb` (for experiment tracking)
+
+- `torchvision ` 0.19.1  
+
+- `pyside6` 6.8.1
+
+- `matplotlib` 3.9.4
+
+---
+
+## 🚀 Usage
+
+### ⚙️ Image Configuration File
+
+1. Navigate to `Detect_tracking/Yolov7-tracker-2/tracker/config_files`, locate the corresponding configuration file and modify it.
+2. Go to the `data` folder under `Detect_tracking/Yolov7-tracker-2`, then:
+   - Edit the YAML configuration file
+   - Update the file indices in the YAML to point to the correct text files (train.txt and test.txt)
+   - Replace the content in these text files with your custom file paths
+
+---
+
+### 📂 Data Preparation
+
+Organize your dataset in the following structure under `data_dir`:
+
+```
+📂 UAVDT2
+    📂 images # Uav images
+    	📂 test
+    	📂 train
+    📂 labels 
+    📂 UAV-benchmark-M
+    📂 UAV-benchmark-MOTD_v1.0
+    
+📂 VisDrone-MOT2
+    📂 annotations
+    📂 annotations_distmot
+    📂 images
+        📂VisDrone2019-MOT-test-dev
+        📂VisDrone2019-MOT-train
+    📂 labels
+    📂 labels with ids
+    📂 merge_cls_gt
 ```
 
-🙌 ***If you have any suggestions for adding trackers***, please leave a comment in the Issues section with the paper title or link! Everyone is welcome to contribute to making this repo better.
+---
 
-<div align="center">
+### 🎯 Training
 
-**Language**: English | [简体中文](README_CN.md)
-
-</div>
-
-## ❤️ Introduction
-
-This repo is a toolbox that implements the **tracking-by-detection paradigm multi-object tracker**. The detector supports:
-
-- YOLOX 
-- YOLO v7
-- YOLO v8, 
-
-and the tracker supports:
-
-- SORT
-- DeepSORT 
-- ByteTrack ([ECCV2022](https://arxiv.org/pdf/2110.06864))
-- Bot-SORT ([arxiv2206](https://arxiv.org/pdf/2206.14651.pdf))
-- OCSORT ([CVPR2023](https://openaccess.thecvf.com/content/CVPR2023/papers/Cao_Observation-Centric_SORT_Rethinking_SORT_for_Robust_Multi-Object_Tracking_CVPR_2023_paper.pdf))
-- C_BIoU Track ([arxiv2211](https://arxiv.org/pdf/2211.14317v2.pdf))
-- Strong SORT ([IEEE TMM 2023](https://arxiv.org/pdf/2202.13514))
-- Sparse Track ([arxiv 2306](https://arxiv.org/pdf/2306.05238))
-
-and the reid model supports:
-
-- OSNet
-- Extractor from DeepSort
-
-The highlights are:
-- Supporting more trackers than MMTracking
-- Rewrite multiple trackers with a ***unified code style***, without the need to configure multiple environments for each tracker 
-- Modular design, which ***decouples*** the detector, tracker, reid model and Kalman filter for easy conducting experiments
-
-![gif](figure/demo.gif)
-
-## 🗺️ Roadmap
-
-- [ x ] Add StrongSort and SparseTrack
-- [ x ] Add save video function
-- [ x ] Add timer function to calculate fps
-- [] Add more ReID modules.
-
-##  🔨 Installation
-
-The basic env is:
-- Ubuntu 18.04
-- Python：3.9, Pytorch: 1.12
-
-Run following commond to install other packages:
+To start training with the provided example configuraton, simply run
 
 ```bash
-pip3 install -r requirements.txt
+python_tracker/yolov8_utils/train_volov8.py --epochs=10 --device=0
+python_tracker/yolov8_utils/train_yolov8_uavdt.py --epochs=10 --device=0
 ```
 
-### 🔍 Detector installation
+After training, there will be several checkpoint files under the  directory. It supports parallel training.
 
-1. YOLOX:
+---
 
-The version of YOLOX is **0.1.0 (same as ByteTrack)**. To install it, you can clone the ByteTrack repo somewhere, and run:
+### 📊 Evaluation
 
-``` bash
-https://github.com/ifzhang/ByteTrack.git
-
-python3 setup.py develop
-```
-
-2. YOLO v7:
-
-There is no need to execute addtional steps as the repo itself is based on YOLOv7.
-
-3. YOLO v8:
-
-Please run:
+Evaluate a trained model with:
 
 ```bash
-pip3 install ultralytics==8.0.94
-```
+python tracker/track.py --dataset visdrone --detector yolov8 --tracker s_iou_track --kalman_format bot --detector_model_path "./best.pt" --exp_id train_test_vis_yolov8s --device=3 --conf_thresh=0.4 && cd ./Easier_To_Use_TrackEval && python scripts/run_custom_dataset.py --config_path configs/VisDrone_test_dev.yaml
 
-### 📑 Data preparation
 
-***If you do not want to test on the specific dataset, instead, you only want to run demos, please skip this section.***
-
-***No matter what dataset you want to test, please organize it in the following way (YOLO style):***
-
-```
-dataset_name
-     |---images
-           |---train
-                 |---sequence_name1
-                             |---000001.jpg
-                             |---000002.jpg ...
-           |---val ...
-           |---test ...
-
-     |
+python tracker/track.py --dataset uavdt --detector yolov8 --tracker s_iou_track --kalman_format bot --detector_model_path "./best.pt" --exp_id train_test_uav_yolov8s --device=0 --conf_thresh=0.4 && cd /data/zoujian/Easier_To_Use_TrackEval && python scripts/run_custom_dataset.py --config_path configs/UAVDT_test.yaml
 
 ```
 
-You can refer to the codes in `./tools` to see how to organize the datasets.
-
-***Then, you need to prepare a `yaml` file to indicate the path so that the code can find the images.***
-
-Some examples are in `tracker/config_files`. The important keys are:
-
-```
-DATASET_ROOT: '/data/xxxx/datasets/MOT17'  # your dataset root
-SPLIT: test  # train, test or val
-CATEGORY_NAMES:  # same in YOLO training
-  - 'pedestrian'
-
-CATEGORY_DICT:
-  0: 'pedestrian'
-```
-
-
-
-## 🚗 Practice 
-
-### 🏃 Training 
-
-Trackers generally do not require parameters to be trained. Please refer to the training methods of different detectors to train YOLOs.
-
-Some references may help you:
-
-- YOLOX: `tracker/yolox_utils/train_yolox.py`
-
-- YOLO v7:
-
-```shell
-python train_aux.py --dataset visdrone --workers 8 --device <$GPU_id$> --batch-size 16 --data data/visdrone_all.yaml --img 1280 1280 --cfg cfg/training/yolov7-w6.yaml --weights <$YOLO v7 pretrained model path$> --name yolov7-w6-custom --hyp data/hyp.scratch.custom.yaml
-```  
-
-- YOLO v8: `tracker/yolov8_utils/train_yolov8.py`
-
-
-
-### 😊 Tracking ! 
-
-If you only want to run a demo:
-
-```bash
-python tracker/track_demo.py --obj ${video path or images folder path} --detector ${yolox, yolov8 or yolov7} --tracker ${tracker name} --kalman_format ${kalman format, sort, byte, ...} --detector_model_path ${detector weight path} --save_images
-```
-
-For example:
-
-```bash
-python tracker/track_demo.py --obj M0203.mp4 --detector yolov8 --tracker deepsort --kalman_format byte --detector_model_path weights/yolov8l_UAVDT_60epochs_20230509.pt --save_images
-```
-
-If you want to run trackers on dataset:
-
-```bash
-python tracker/track.py --dataset ${dataset name, related with the yaml file} --detector ${yolox, yolov8 or yolov7} --tracker ${tracker name} --kalman_format ${kalman format, sort, byte, ...} --detector_model_path ${detector weight path}
-```
-
-For example:
-
-- SORT: `python tracker/track.py --dataset uavdt --detector yolov8 --tracker sort --kalman_format sort --detector_model_path weights/yolov8l_UAVDT_60epochs_20230509.pt `
-
-- DeepSORT: `python tracker/track.py --dataset uavdt --detector yolov7 --tracker deepsort --kalman_format byte --detector_model_path weights/yolov7_UAVDT_35epochs_20230507.pt`
-
-- ByteTrack: `python tracker/track.py --dataset uavdt --detector yolov8 --tracker bytetrack --kalman_format byte --detector_model_path weights/yolov8l_UAVDT_60epochs_20230509.pt`
-
-- OCSort: `python tracker/track.py --dataset uavdt --detector yolov8 --tracker ocsort --kalman_format ocsort --detector_model_path weights/yolov8l_UAVDT_60epochs_20230509.pt`
-
-- C-BIoU Track: `python tracker/track.py --dataset uavdt --detector yolov8 --tracker c_bioutrack --kalman_format bot --detector_model_path weights/yolov8l_UAVDT_60epochs_20230509.pt`
-
-- BoT-SORT: `python tracker/track.py --dataset uavdt --detector yolox --tracker botsort --kalman_format bot --detector_model_path weights/yolox_m_uavdt_50epochs.pth.tar`
-
-- Strong SORT: `python tracker/track.py --dataset uavdt --detector yolov8 --tracker strongsort --kalman_format strongsort --detector_model_path weights/yolov8l_UAVDT_60epochs_20230509.pt`
-
-- Sparse Track: `python tracker/track.py --dataset uavdt --detector yolov8 --tracker sparsetrack --kalman_format bot --detector_model_path weights/yolov8l_UAVDT_60epochs_20230509.pt`
-
-### ✅ Evaluation 
-
-Coming Soon. As an alternative, after obtaining the result txt file, you can use the [Easier to use TrackEval repo](https://github.com/JackWoo0831/Easier_To_Use_TrackEval).
+First, activate your environment, then go to the Yolov7-tracker-2/ directory and run the track.py script inside the tracker folder.  Replace pt file with any others as needed. Replace `detector_model_path` and `Easier_To_Use_TrackEval` with your custom paths. We will publish the pt files in the VisDrone and UAVDT datasets.  
