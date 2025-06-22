@@ -95,6 +95,12 @@ python tracker/track.py --dataset uavdt --detector yolov8 --tracker s_iou_track 
 
 First, activate your environment, then go to the Yolov7-tracker-2/ directory and run the track.py script inside the tracker folder.  Replace pt file with any others as needed. Replace `detector_model_path` and `Easier_To_Use_TrackEval` with your custom paths. We will publish the pt files in the VisDrone and UAVDT datasets.  
 
+The main results of VisDrone:
+
+| **Method** | **Dataset** | **HOTA** | **MOTA** | **IDF1** | **FN** | **FP** | **IDs** | **MT** | **ML** |                                           **URL**                                           |
+|:----------:|:-----------:|:--------:|:--------:|:--------:|:---------:|:---------:|:---------:|-----------|----------| :-----------------------------------------------------------------------------------------: |
+| Ours  | VisDrone | 64.568 | 70.294 | 81.667 | 19584 | 3137 | 375 | 190 | 38 | [model](https://github.com/wudongming97/RMOT/releases/download/v1.0/checkpoint0099.pth) |
+
 ### Acknowledgements
 We're grateful to the open-source authors whose code has assisted us.
 - [Yolov7-tracker](https://github.com/JackWoo0831/Yolov7-tracker/tree/v2)
