@@ -1,0 +1,11 @@
+# train: /data/zhangwei/code/paper-track-2/Yolov7-tracker-2/uavdt/train.txt
+# val: /data/zhangwei/code/paper-track-2/Yolov7-tracker-2/uavdt/test.txt
+# test: /data/zhangwei/code/paper-track-2/Yolov7-tracker-2/uavdt/test.txt
+# 2024年12月12日
+train: /data/zoujian/Detect_tracking/Yolov7-tracker-2/uavdt/train.txt
+val: /data/zoujian/Detect_tracking/Yolov7-tracker-2/uavdt/test.txt
+test: /data/zoujian/Detect_tracking/Yolov7-tracker-2/uavdt/test.txt
+
+nc: 1
+
+names: ['car']

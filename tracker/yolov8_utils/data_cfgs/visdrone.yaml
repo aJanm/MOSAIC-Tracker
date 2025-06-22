@@ -1,0 +1,10 @@
+# train: /data/zhangwei/code/paper-track-2/Yolov7-tracker-2/visdrone/train.txt
+# val: /data/zhangwei/code/paper-track-2/Yolov7-tracker-2/visdrone/test.txt
+# test: /data/zhangwei/code/paper-track-2/Yolov7-tracker-2/visdrone/test.txt
+train: /data/zoujian/Detect_tracking/Yolov7-tracker-2/visdrone/train.txt
+val: /data/zoujian/Detect_tracking/Yolov7-tracker-2/visdrone/test.txt
+test: /data/zoujian/Detect_tracking/Yolov7-tracker-2/visdrone/test.txt
+
+nc: 10
+
+names: ['pedestrain', 'car', 'van', 'truck', 'bus', 'bus1', 'bus2', 'bus3', 'bus4', 'bus4']
