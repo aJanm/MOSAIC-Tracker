@@ -34,8 +34,8 @@ This repository provides the implementation for paper.  We present a Mutual-enha
 
 ### ⚙️ Image Configuration File
 
-1. Navigate to `Detect_tracking/Yolov7-tracker-2/tracker/config_files`, locate the corresponding configuration file and modify it.
-2. Go to the `data` folder under `Detect_tracking/Yolov7-tracker-2`, then:
+1. Navigate to `./tracker/config_files`, locate the corresponding configuration file and modify it.
+2. Go to the `data` folder, then:
    - Edit the YAML configuration file
    - Update the file indices in the YAML to point to the correct text files (train.txt and test.txt)
    - Replace the content in these text files with your custom file paths
