@@ -97,17 +97,16 @@ python tracker/track.py --dataset uavdt --detector yolov8 --tracker s_iou_track 
 
 ```
 
-First, activate your environment, then go to the Yolov7-tracker-2/ directory and run the track.py script inside the tracker folder.  Replace pt file with any others as needed. Replace `detector_model_path` and `Easier_To_Use_TrackEval` with your custom paths. We will publish the pt files in the VisDrone and UAVDT datasets.  
+First, activate your environment, then go to the Yolov7-tracker-2/ directory and run the track.py script inside the tracker folder.  Replace pt file with any others as needed. Replace `detector_model_path` and `Easier_To_Use_TrackEval` with your custom paths. 
 
-The main results of VisDrone:
+The prediction files generated on the <ins>**VisDrone and UAVDT datasets are stored in /track_results/train_test_vis_yolov8s and /track_results/train_test_uav_yolov8s, respectively**</ins>. For performance evaluation, we employed the Easier_To_Use_The_TrackEval package to compute standard multi-object tracking (MOT) metrics. The obtained results demonstrate comparable or superior performance relative to our paper.
 
-| **Method** | **Dataset** | **HOTA** | **MOTA** | **IDF1** | **FN** | **FP** | **IDs** | **MT** | **ML** |                                           **URL**                                           |
-|:----------:|:-----------:|:--------:|:--------:|:--------:|:---------:|:---------:|:---------:|-----------|----------| :-----------------------------------------------------------------------------------------: |
-| Ours  | VisDrone |46.044 | 41.358 | 58.142 | 126112 | 26895 | 1862 | 583 | 591 | [model](https://github.com/aJanm/MOSAIC-Tracker/releases/download/v1.0/my_visdrone.pt) |
+Detailed metric evaluations are provided in the following files:
 
-| **Method** | **Dataset** | **HOTA** | **MOTA** | **IDF1** | **FN** | **FP** | **IDs** | **MT** | **ML** |                                           **URL**                                           |
-|:----------:|:-----------:|:--------:|:--------:|:--------:|:---------:|:---------:|:---------:|-----------|----------| :-----------------------------------------------------------------------------------------: |
-| Ours  | UAVDT | 64.568 | 70.294 | 81.667 | 19584 | 3137 | 375 | 190 | 38 | [model](https://github.com/aJanm/MOSAIC-Tracker/releases/download/v1.0/my_uavdt.pt) |
+    ​​VisDrone dataset​​: valid_summary.txt and valid_detailed.csv
+    
+    ​​UAVDT dataset​​: car_summary.txt and car_detailed.csv
+
 
 ### Acknowledgements
 We're grateful to the open-source authors whose code has assisted us.
