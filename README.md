@@ -2,7 +2,7 @@
 
 This repository provides the implementation for paper.  We present a Mutual-enhanced Occlusion-aware Spatiotemporal Adaptive  Identity Conservation Network (MOSAIC-Tracker) that dynamically  optimizes feature representation and data association across three key  dimensions. Extensive evaluations on UAVDT and VisDrone2019 datasets  demonstrate good performance.
 
-1.To enhance reproducibility and facilitate implementation, we have additionally provided **our modified version of the ultralytics code package** as supplementary material. Users may directly reference and integrate these customized files into their workflows, rather than relying solely on the official ultralytics distribution.
+1.To enhance reproducibility and facilitate implementation, we have additionally provided **our modified version of the ultralytics code package**(The path is located at: ​​packages/ultralytics​​) as supplementary material. Users may directly reference and integrate these customized files into their workflows, rather than relying solely on the official ultralytics distribution.
 
 2.**Easier_To_Use_The TrackEval** code package is used to calculate metrics such as HOTA,MOTA, and IDF1 in multi-object tracking. The official link to this package is: [Easier_To_Use_TrackEval](https://github.com/JackWoo0831/Easier_To_Use_TrackEval). The evaluation can be performed using **either the official metric computation toolkit or the package contained within our file directory.**
 
