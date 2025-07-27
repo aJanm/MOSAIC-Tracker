@@ -1,0 +1,98 @@
+# for MOTChallenge-Like dir structure 
+# ${data_root}:
+#    |
+#    |___${train_folder_name}(Optional)
+#          |
+#          |____${seq_name}
+#                     |_______${image_folder}
+#                                    |____${frame_name}
+#                     |_______${gt_folder_name}
+#                                    |____${gt_txt_name}
+#    |___${test_folder_name}(Optional)
+#          |
+#          |____${seq_name}
+#                     |_______${image_folder}
+#                                    |____${frame_name}
+#                     |_______${gt_folder_name}   
+#                                    |____${gt_txt_name}
+
+
+# track result MUST OBEY this strcture:
+# result:
+#    |
+#    |_____${train or test}(Optional)
+#                  |
+#                  |_____${tracker_name}(Optional)
+#                                |_______ ${seq_name}.txt
+
+
+gt_structure_config: 
+  # data_root: '/data/wujiapeng/datasets/UAVDT/' # 2024年12月27日
+  data_root: '/data/zoujian/Detect_tracking/UAVDT2/UAV-benchmark-MOTD_v1.0/GT'
+  
+  has_split: True
+  train_or_test: test
+  train_folder_name: UAV-benchmark-M
+  test_folder_name: UAV-benchmark-M
+  gt_folder_name: gt
+  # gt_txt_name: 'gt.txt'  # gt.txt, {seq_name}.txt, etc.
+  gt_txt_name: '{seq_name}_gt.txt'  # gt.txt, {seq_name}.txt, etc.
+  # gt_loc_format: '{data_root}/{split_name}/{seq_name}/{gt_folder_name}/{gt_txt_name}' 
+  gt_loc_format: '{data_root}/{gt_txt_name}'  
+
+tracker_structure_config:
+  # trackers_folder: './result/fairmot/fairmot_depth_20231212_uavdt_epoch20_none_comp'
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train_test3_uav_yolov8s/uavdt/test/'
+  
+  # “关闭随机加载数据集后将监督多帧 多帧模块 和单帧对比.docx”  这个word文件中有对应的train best.pt     重要重要
+  
+  
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train217_addmodel_before4_uav_yolov8s/uavdt/test/' # train217对应查看 2024年12月26日 addmodel3 前4帧 shuffle=false batchsize=4 epoch50
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train217_2_addmodel_before4_uav_yolov8s/uavdt/test/' # 加上了track 多帧 train217对应查看 2024年12月26日 addmodel3 前4帧 shuffle=false batchsize=4 epoch50
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train217_3_addmodel_updatetrack_before4_uav_yolov8s/uavdt/test/' # task addmodel3 加上了track 多帧 train217对应查看 2024年12月26日 addmodel3 前4帧 shuffle=false batchsize=4 epoch50
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train218_simple_twoframe_uav_yolov8s/uavdt/test/' # train218对应查看 2024年12月26日 简单双帧 前4帧 shuffle=false batchsize=4 epoch50
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train218_2_simple_twofrae_uav_yolov8s/uavdt/test/' # 加上了track 多帧 train218对应查看 2024年12月26日 简单双帧 前4帧 shuffle=false batchsize=4 epoch50
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train218_3_simple_twoframe_uav_yolov8s/uavdt/test/' # 加上了track 多帧 也改了task train218对应查看 2024年12月26日 简单双帧 前4帧 shuffle=false batchsize=4 epoch50
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train218_4_simple_twoframe_uav_yolov8s/uavdt/test/' # 加上了track t-4 多帧 也改了task train218对应查看 2024年12月26日 简单双帧 前4帧 shuffle=false batchsize=4 epoch50
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train212_oneframe_uav_yolov8s/uavdt/test/' # train212对应查看 #2024年12月25日 单帧batchsize改成4
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train212_oneframe2_uav_yolov8s/uavdt/test/' # 测试多帧是否加进，让效果和前面单帧对比 train212对应查看 #2024年12月25日 单帧batchsize改成4
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train218_simple_twoframe_updatetrack_uav_yolov8s/uavdt/test/' # # train218_update对应查看跟踪改进 2024年12月26日 简单双帧 前4帧 shuffle=false batchsize=4 epoch50
+  # trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train212_oneframe3_uav_yolov8s/uavdt/test/' # train212对应查看 #2024年12月25日 单帧batchsize改成4
+  trackers_folder: '/data/zoujian/Detect_tracking/Yolov7-tracker-2/track_results/train_test_uav_yolov8s/uavdt/test/' # train_test_uav_yolov8s 对应作为一个测试的保存文件夹
+
+  has_split: False
+  split_name: ''
+  has_tracker_name: False
+  trackers_to_eval:   # None for all
+
+
+# other options
+OUTPUT_FOLDER: './track_eval_output'   # Where to save eval results (if None  same as TRACKERS_FOLDER)
+
+SEQ_INFO:  # seq_name: seq_length
+  'M0101': 407
+  'M0202': 291
+  'M0203': 1007
+  'M0402': 410
+  # 'M0601': 372
+  'M0604': 1079
+  'M1002': 660
+  'M1003': 1346
+  'M1008': 569
+  'M1202': 472
+
+# CLASS configs
+CLASSES_TO_EVAL: 
+  - 'car'
+
+CLASS_NAME_TO_CLASS_ID:
+  'ignored': 0
+  'car': 1
+
+VALID_CLASS:
+  'car': 1
+
+DISTRACTOR_CLASSES_NAMES:
+  - 'ignored'
+
+# python scripts/run_custom_dataset.py --config_path configs/UAVDT_test.yaml

@@ -1,0 +1,82 @@
+# for MOTChallenge-Like dir structure 
+# ${data_root}:
+#    |
+#    |___${train_folder_name}(Optional)
+#          |
+#          |____${seq_name}
+#                     |_______${image_folder}
+#                                    |____${frame_name}
+#                     |_______${gt_folder_name}
+#                                    |____${gt_txt_name}
+#    |___${test_folder_name}(Optional)
+#          |
+#          |____${seq_name}
+#                     |_______${image_folder}
+#                                    |____${frame_name}
+#                     |_______${gt_folder_name}   
+#                                    |____${gt_txt_name}
+
+
+# track result MUST OBEY this strcture:
+# result:
+#    |
+#    |_____${train or test}(Optional)
+#                  |
+#                  |_____${tracker_name}(Optional)
+#                                |_______ ${seq_name}.txt
+
+
+gt_structure_config: 
+  data_root: '/data/wujiapeng/datasets/AIRMOT'
+  has_split: True
+  train_or_test: test
+  train_folder_name: trainData
+  test_folder_name: trainData
+  gt_folder_name: gt
+  gt_txt_name: '{seq_name}.txt'  # gt.txt, {seq_name}.txt, etc.
+  gt_loc_format: '{data_root}/{split_name}/{gt_folder_name}/{gt_txt_name}' 
+
+tracker_structure_config:
+  trackers_folder: './result/airmot'
+  has_split: False
+  split_name: ''
+  has_tracker_name: False
+  trackers_to_eval:   # None for all
+
+
+# other options
+OUTPUT_FOLDER: './track_eval_output'   # Where to save eval results (if None  same as TRACKERS_FOLDER)
+
+SEQ_INFO:  # seq_name: seq_length
+  # '7': 143
+  # '11': 143
+  '20': 326
+  # '22': 326
+  # '27': 326
+  # '35': 326
+  # '36': 326
+  # '41': 327
+  # '46': 327
+  # '69': 72
+  # '70': 72
+  # '75': 327
+  '77': 70
+
+# CLASS configs
+CLASSES_TO_EVAL: 
+  - 'plane'
+  - 'ship'
+
+CLASS_NAME_TO_CLASS_ID:
+  'ignored': 0
+  'plane': 1
+  'ship': 2
+
+VALID_CLASS:
+  'plane': 1
+  'ship': 2
+
+DISTRACTOR_CLASSES_NAMES:
+  - 'ignored'
+
+# python scripts/run_custom_dataset.py --config_path configs/AIRMOT.yaml
